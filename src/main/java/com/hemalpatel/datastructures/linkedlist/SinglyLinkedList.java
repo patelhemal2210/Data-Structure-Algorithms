@@ -3,26 +3,26 @@ package main.java.com.hemalpatel.datastructures.linkedlist;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T> implements LinkedList<T> {
 
     public SinglyLinkedList() {
     }
 
-    private class Node<T> {
+    private class Node {
 
         public Node(T data) {
             this.data = data;
             next = null;
         }
 
-        private Node<T> next;
+        private Node next;
         private final T data;
 
-        public void setNext(Node<T> node) {
+        public void setNext(Node node) {
             next = node;
         }
 
-        public Node<T> getNext() {
+        public Node getNext() {
             return next;
         }
 
@@ -41,9 +41,9 @@ public class SinglyLinkedList<T> {
         }
     }
 
-    private Node<T> first = null;
+    private Node first = null;
     private int size = 0;
-    private Node<T> last = null;
+    private Node last = null;
 
     public int getSize() {
         return size;
@@ -65,7 +65,7 @@ public class SinglyLinkedList<T> {
         } else {
             StringBuilder nodeString = new StringBuilder();
             nodeString.append(first).append("\n");
-            Node<T> node = first.next;
+            Node node = first.next;
             for (int i = 1; i < size; i++) {
                 nodeString.append(node).append("\n");
                 node = node.getNext();
@@ -84,7 +84,7 @@ public class SinglyLinkedList<T> {
      * @param data value for of the element
      */
     public void insert(T data) {
-        Node<T> node = new Node<>(data);
+        Node node = new Node(data);
 
         if (first == null) {
             first = node;
@@ -108,16 +108,16 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException("Index out of range");
         }
         if (index == 0) {
-            Node<T> node = new Node<>(data);
+            Node node = new Node(data);
             node.setNext(first);
             first = node;
         } else {
-            Node<T> node = first;
+            Node node = first;
             for (int i = 1; i < index; i++) {
                 node = node.getNext();
             }
 
-            Node<T> newNode = new Node<>(data);
+            Node newNode = new Node(data);
             newNode.setNext(node.getNext());
             node.setNext(newNode);
             if (index == size) {
@@ -151,7 +151,7 @@ public class SinglyLinkedList<T> {
                 last = first;
             }
         } else {
-            Node<T> node = first;
+            Node node = first;
             for (int i = 1; i < index; i++) {
                 node = node.getNext();
             }
@@ -189,8 +189,8 @@ public class SinglyLinkedList<T> {
             size--;
             return true;
         } else {
-            Node<T> previousNode = first;
-            Node<T> node = first.getNext();
+            Node previousNode = first;
+            Node node = first.getNext();
             for (int i = 0; i < size - 1; i++) {
                 if (node.getData().equals(data)) {
                     previousNode.setNext(node.getNext());
@@ -223,7 +223,7 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException("Index out of range");
         }
 
-        Node<T> node = first;
+        Node node = first;
         for (int i = 0; i < size; i++) {
             if (index == i) {
                 break;
@@ -241,7 +241,7 @@ public class SinglyLinkedList<T> {
      */
     public List<T> getAll() {
         ArrayList<T> result = new ArrayList<>(size);
-        Node<T> node = first;
+        Node node = first;
         for(int i = 0; i < size; i++) {
             result.add(node.getData());
             node = node.getNext();

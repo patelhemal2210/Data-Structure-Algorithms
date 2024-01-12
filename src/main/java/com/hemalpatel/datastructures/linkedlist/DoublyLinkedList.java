@@ -3,13 +3,13 @@ package main.java.com.hemalpatel.datastructures.linkedlist;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoublyLinkedList<T> {
+public class DoublyLinkedList<T> implements LinkedList<T> {
 
-    private class Node<T> {
+    private class Node {
 
         private final T data;
-        private Node<T> previous;
-        private Node<T> next;
+        private Node previous;
+        private Node next;
 
         public Node(T data) {
             this.data = data;
@@ -17,11 +17,11 @@ public class DoublyLinkedList<T> {
             this.next = null;
         }
 
-        public Node<T> getNext() {
+        public Node getNext() {
             return next;
         }
 
-        public Node<T> getPrevious() {
+        public Node getPrevious() {
             return previous;
         }
 
@@ -29,11 +29,11 @@ public class DoublyLinkedList<T> {
             return data;
         }
 
-        public void setPrevious(Node<T> previous) {
+        public void setPrevious(Node previous) {
             this.previous = previous;
         }
 
-        public void setNext(Node<T> next) {
+        public void setNext(Node next) {
             this.next = next;
         }
 
@@ -43,8 +43,8 @@ public class DoublyLinkedList<T> {
         }
     }
 
-    private Node<T> first;
-    private Node<T> last;
+    private Node first;
+    private Node last;
     private int size;
 
     public DoublyLinkedList() {
@@ -70,7 +70,7 @@ public class DoublyLinkedList<T> {
                     .append(" ;next : ")
                     .append(first.next)
                     .append("\n");
-            Node<T> node = first.next;
+            Node node = first.next;
             for (int i = 1; i < size; i++) {
                 nodeString.append("previous : ")
                         .append(node.previous)
@@ -94,7 +94,7 @@ public class DoublyLinkedList<T> {
      * @param data value for of the element
      */
     public void insert(T data) {
-        Node<T> node = new Node<>(data);
+        Node node = new Node(data);
 
         if (size == 0) {
             this.first = node;
@@ -124,7 +124,7 @@ public class DoublyLinkedList<T> {
             insert(data);
             return;
         } else {
-            Node<T> newNode = new Node<>(data);
+            Node newNode = new Node(data);
 
             if (index == 0) { // adding at the beginning
                 newNode.setNext(this.first);
@@ -132,7 +132,7 @@ public class DoublyLinkedList<T> {
                 this.first = newNode;
             } else { // insert in-between
                 if (index <= (int) Math.floor((double) size / 2)) { // traverse from front
-                    Node<T> node = this.first;
+                    Node node = this.first;
                     for (int i = 1; i < index; i++) {
                         node = node.getNext();
                     }
@@ -142,7 +142,7 @@ public class DoublyLinkedList<T> {
                     node.getNext().setPrevious(newNode);
                     node.setNext(newNode);
                 } else { // traverse from back
-                    Node<T> node = this.last;
+                    Node node = this.last;
                     for (int i = size - 1; i > index; i--) {
                         node = node.getPrevious();
                     }
@@ -186,7 +186,7 @@ public class DoublyLinkedList<T> {
             return data;
         }
 
-        Node<T> node = this.first.getNext();
+        Node node = this.first.getNext();
         for(int i = 1; i < size - 1; i++) {
             if(i == index) break;
             node = node.getNext();
@@ -224,7 +224,7 @@ public class DoublyLinkedList<T> {
             return true;
         }
 
-        Node<T> node = this.first.getNext();
+        Node node = this.first.getNext();
         for(int i = 1; i < size; i++) {
             if(node.getData().equals(data)) {
                 node.getPrevious().setNext(node.getNext());
@@ -236,6 +236,11 @@ public class DoublyLinkedList<T> {
         }
 
         return false;
+    }
+
+    @Override
+    public int getSize() {
+        return size;
     }
 
     /***
@@ -252,13 +257,13 @@ public class DoublyLinkedList<T> {
         }
 
         if (index <= (int) Math.floor((double) size / 2)) { // traverse from front
-            Node<T> node = this.first;
+            Node node = this.first;
             for (int i = 0; i < index; i++) {
                 node = node.getNext();
             }
             return node.getData();
         } else { // traverse from back
-            Node<T> node = this.last;
+            Node node = this.last;
             for (int i = size - 1; i > index; i--) {
                 node = node.getPrevious();
             }
@@ -274,7 +279,7 @@ public class DoublyLinkedList<T> {
      */
     public List<T> getAll() {
         List<T> list = new ArrayList<>();
-        Node<T> node = first;
+        Node node = first;
         for(int i = 0; i < size; i++) {
             list.add(node.getData());
             node = node.getNext();
