@@ -11,13 +11,9 @@ public class InsertionSort {
         for (int i = 0; i < data.length - 1; i++) {
             int selectedElement = data[i + 1];
             int insertionIndex = i + 1;
-            for (int j = i; j >= 0; j--) {
-                if (selectedElement < data[j]) {
-                    data[j + 1] = data[j];
-                    insertionIndex = j;
-                } else {
-                    break; // Already found the right place or no insertion needed
-                }
+            for (int j = i; (j >= 0) && (selectedElement < data[j]); j--) {
+                data[j + 1] = data[j];
+                insertionIndex = j;
             }
             data[insertionIndex] = selectedElement;
         }
